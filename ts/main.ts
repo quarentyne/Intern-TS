@@ -59,3 +59,19 @@ const checkIsAnagramm = (firstString: string, secondString: string): boolean => 
   }
   return true;
 }
+
+const getNumberAmoutRecursion = (number: number, count?: number): number => {
+  count = count || 0;
+  if (number > -10 && number < 10) {
+    return ++count;
+  }
+  return getNumberAmoutRecursion(number / 10, count + 1);
+}
+
+const getNumberAmout = (number: number): number => {
+  let count: number = 0;
+  for (count; number >= 1; count++){
+    number /= 10;
+  }
+  return count;
+}

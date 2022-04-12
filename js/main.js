@@ -36,3 +36,17 @@ const checkIsAnagramm = (firstString, secondString) => {
     }
     return true;
 };
+const getNumberAmoutRecursion = (number, count) => {
+    count = count || 0;
+    if (number > -10 && number < 10) {
+        return ++count;
+    }
+    return getNumberAmoutRecursion(number / 10, count + 1);
+};
+const getNumberAmout = (number) => {
+    let count = 0;
+    for (count; number >= 1; count++) {
+        number /= 10;
+    }
+    return count;
+};
