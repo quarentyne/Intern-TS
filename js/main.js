@@ -123,3 +123,51 @@ const getWordsCount = (string) => {
     }
     return wordCount;
 };
+//7
+class Triangle {
+    constructor(base, firstAdditionalSide, secondAdditionalSide) {
+        if (base < 0 || firstAdditionalSide < 0 || secondAdditionalSide < 0) {
+            throw new Error('Operators cannot be negative');
+        }
+        this.base = base;
+        this.firstAdditionalSide = firstAdditionalSide;
+        this.secondAdditionalSide = secondAdditionalSide;
+    }
+    getPerimeter() {
+        return this.base + this.firstAdditionalSide + this.secondAdditionalSide;
+    }
+    getSquare() {
+        let halfPerimeter = this.getPerimeter() / 2;
+        return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
+            (halfPerimeter - this.secondAdditionalSide));
+    }
+}
+class Circle {
+    constructor(radius) {
+        if (radius < 1) {
+            throw new Error('Operator cannot be negative');
+        }
+        this.radius = radius;
+    }
+    getPerimeter() {
+        return 2 * this.radius * Math.PI;
+    }
+    getSquare() {
+        return Math.PI * (Math.pow(this.radius, 2));
+    }
+}
+class Rectangle {
+    constructor(width, length) {
+        if (width < 0 || length < 0) {
+            throw new Error('Operator cannot be negative');
+        }
+        this.width = width;
+        this.length = length;
+    }
+    getPerimeter() {
+        return 2 * (this.width * this.length);
+    }
+    getSquare() {
+        return this.width * this.length;
+    }
+}

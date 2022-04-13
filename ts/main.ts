@@ -147,3 +147,66 @@ const getWordsCount = (string: string): object => {
   }
   return wordCount;
 }
+
+//7
+class Triangle {
+  base: number;
+  firstAdditionalSide: number;
+  secondAdditionalSide: number;
+
+  constructor(base: number, firstAdditionalSide: number, secondAdditionalSide: number) {
+    if (base < 0 || firstAdditionalSide < 0 || secondAdditionalSide < 0) {
+      throw new Error('Operators cannot be negative');
+    }
+    this.base = base;
+    this.firstAdditionalSide = firstAdditionalSide;
+    this.secondAdditionalSide = secondAdditionalSide;
+  }
+
+  getPerimeter(): number {
+    return this.base + this.firstAdditionalSide + this.secondAdditionalSide;
+  }
+  getSquare(): number {
+    let halfPerimeter = this.getPerimeter() / 2;
+    return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
+      (halfPerimeter - this.secondAdditionalSide));
+  }
+}
+
+class Circle {
+  radius: number;
+
+  constructor(radius: number) {
+    if (radius < 1) {
+      throw new Error('Operator cannot be negative');
+    }
+    this.radius = radius;
+  }
+
+  getPerimeter(): number {
+    return 2 * this.radius * Math.PI;
+  }
+  getSquare(): number {
+    return Math.PI * (this.radius ** 2);
+  }
+}
+
+class Rectangle {
+  width: number;
+  length: number;
+
+  constructor(width: number, length: number) {
+    if (width < 0 || length < 0) {
+      throw new Error('Operator cannot be negative');
+    }
+    this.width = width;
+    this.length = length;
+  }
+
+  getPerimeter(): number {
+    return 2 * (this.width * this.length);
+  }
+  getSquare(): number {
+    return this.width * this.length;
+  }
+}
