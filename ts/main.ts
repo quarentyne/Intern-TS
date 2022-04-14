@@ -2,6 +2,15 @@ interface Array<T> {
   myFilter(callback: (value: T) => boolean | T): Array<T>;
   mySort(): Array<T>;
   myIncludes(element: T): boolean;
+  myReduce(): number;
+}
+
+Array.prototype.myReduce = function () {
+  let result: number = 0;
+  for (let i = 0; i < this.length; i++){
+    result += this[i];
+  }
+  return result;
 }
 
 Array.prototype.mySort = function () {
@@ -298,7 +307,8 @@ const getSummFromArrayRecursion = (array: Array<number>,
   return getSummFromArrayRecursion(array, callback, result, ++index);
 }
 
-const getSummFromArray = (array: Array<number>, callback: (value: number) => boolean): number => {
+const getSummFromArray = (array: Array<number>,
+  callback: (value: number) => boolean): number => {
   let result: number = 0;
   for (let i = 0; i < array.length; i++){
     if (callback(array[i])) {
@@ -309,7 +319,8 @@ const getSummFromArray = (array: Array<number>, callback: (value: number) => boo
 }
 
 // 10
-const getElemsCount = (array: Array<number>, callback: (value: number) => boolean): number => {
+const getElemsCount = (array: Array<number>,
+  callback: (value: number) => boolean): number => {
   let count: number = 0;
   for (let number of array) {
     if (callback(number)) {
@@ -317,4 +328,109 @@ const getElemsCount = (array: Array<number>, callback: (value: number) => boolea
     }
   }
   return count;
+}
+
+//  11
+const toDecimal = (number: number): number => {
+  let result: number = 0;
+  const numbersArray: Array<number> = [];
+  const numLength: number = Math.ceil(Math.log10(number + 1));
+  let maxLength: number = 10 ** (numLength - 1);
+
+  while (maxLength >= 1) {
+    let trunced: number = Math.trunc(number / maxLength);
+    numbersArray.push(trunced);
+    trunced = trunced * maxLength;
+    maxLength = maxLength / 10;
+    number = number - trunced;
+  }
+  for (let i = 0; i < numbersArray.length; i++){
+    result = result * 2 + numbersArray[i];
+  }
+  return result;
+}
+
+const toBinary = (number: number): string => {
+  const numbersArray: Array<number> = [];
+  let result: string = '';
+  while (number / 2 > 0) {
+    numbersArray.push(number % 2);
+    number = Math.floor(number / 2);
+  }
+  for (let i = numbersArray.length - 1; i >= 0; i--){
+    result += numbersArray[i];
+  }
+  return result;
+}
+
+// 12
+const getSumTwoDimensionalArray = (array: Array<Array<number>>,
+  callback: (value: number) => boolean): number => {
+  let result: number = 0;
+  for (let i = 0; i < array.length; i++){
+    for (let j = 0; j < array[i].length; j++){
+      if (callback(array[i][j])) {
+        result += array[i][j];
+      }
+    }
+  }
+  return result;
+}
+
+const getElemsCountTwoDimensionalArray = (array: Array<Array<number>>,
+  callback: (value: number) => boolean): number => {
+  let result: number = 0;
+  for (let i = 0; i < array.length; i++){
+    for (let j = 0; j < array[i].length; j++){
+      if (callback(array[i][j])) {
+        result++;
+      }
+    }
+  }
+  return result;
+}
+
+// 13
+const getSumFromSegmentOfNumbers = (min: number, max: number,
+  callback: (value: number) => boolean): number => {
+  let result: number = 0;
+  for (let i = min; i <= max; i++){
+    if (callback(i)) {
+      result += i;
+    }
+  }
+  return result;
+}
+
+const getSumFromSegmentOfNumbersRecursion = (min: number, max: number,
+  callback: (value: number) => boolean, result?: number): number => {
+  result = result || 0;
+  if (min > max) {
+    return result;
+  }
+  if (callback(min)) {
+    result += min;
+  }
+  return getSumFromSegmentOfNumbersRecursion(min + 1, max, callback, result);
+}
+
+// 14
+const takeAverageArrayElements = (array: Array<number>,
+  callback: (value: number) => boolean): number => {
+  const filteredArray: Array<number> = array.myFilter(callback);
+  return filteredArray.myReduce() / filteredArray.length;
+}
+
+const takeAverageTwoDimensionalArrayElements = (array: Array<Array<number>>,
+  callback: (value: number) => boolean): number => {
+  let result: number = 0;
+  let count: number = 0;
+  for (let i = 0; i < array.length; i++){
+    const filtered: Array<number> = array[i].myFilter(callback);
+    if (filtered.length !== 0) {
+      count += filtered.length;
+      result += filtered.myReduce();
+    }
+  }
+  return result / count;
 }

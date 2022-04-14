@@ -1,3 +1,10 @@
+Array.prototype.myReduce = function () {
+    let result = 0;
+    for (let i = 0; i < this.length; i++) {
+        result += this[i];
+    }
+    return result;
+};
 Array.prototype.mySort = function () {
     for (let i = 0; i < this.length; i++) {
         for (let j = 0; j < this.length; j++) {
@@ -263,3 +270,94 @@ const getElemsCount = (array, callback) => {
     }
     return count;
 };
+//  11
+const toDecimal = (number) => {
+    let result = 0;
+    const numbersArray = [];
+    const numLength = Math.ceil(Math.log10(number + 1));
+    let maxLength = Math.pow(10, (numLength - 1));
+    while (maxLength >= 1) {
+        let trunced = Math.trunc(number / maxLength);
+        numbersArray.push(trunced);
+        trunced = trunced * maxLength;
+        maxLength = maxLength / 10;
+        number = number - trunced;
+    }
+    for (let i = 0; i < numbersArray.length; i++) {
+        result = result * 2 + numbersArray[i];
+    }
+    return result;
+};
+const toBinary = (number) => {
+    const numbersArray = [];
+    let result = '';
+    while (number / 2 > 0) {
+        numbersArray.push(number % 2);
+        number = Math.floor(number / 2);
+    }
+    for (let i = numbersArray.length - 1; i >= 0; i--) {
+        result += numbersArray[i];
+    }
+    return result;
+};
+// 12
+const getSumTwoDimensionalArray = (array, callback) => {
+    let result = 0;
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            if (callback(array[i][j])) {
+                result += array[i][j];
+            }
+        }
+    }
+    return result;
+};
+const getElemsCountTwoDimensionalArray = (array, callback) => {
+    let result = 0;
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            if (callback(array[i][j])) {
+                result++;
+            }
+        }
+    }
+    return result;
+};
+// 13
+const getSumFromSegmentOfNumbers = (min, max, callback) => {
+    let result = 0;
+    for (let i = min; i <= max; i++) {
+        if (callback(i)) {
+            result += i;
+        }
+    }
+    return result;
+};
+const getSumFromSegmentOfNumbersRecursion = (min, max, callback, result) => {
+    result = result || 0;
+    if (min > max) {
+        return result;
+    }
+    if (callback(min)) {
+        result += min;
+    }
+    return getSumFromSegmentOfNumbersRecursion(min + 1, max, callback, result);
+};
+// 14
+const takeAverageArrayElements = (array, callback) => {
+    const filteredArray = array.myFilter(callback);
+    return filteredArray.myReduce() / filteredArray.length;
+};
+const takeAverageTwoDimensionalArrayElements = (array, callback) => {
+    let result = 0;
+    let count = 0;
+    for (let i = 0; i < array.length; i++) {
+        const filtered = array[i].myFilter(callback);
+        if (filtered.length !== 0) {
+            count += filtered.length;
+            result += filtered.myReduce();
+        }
+    }
+    return result / count;
+};
+console.log(takeAverageTwoDimensionalArrayElements([[2], [4], [2, 2, 0, 6]], v => v % 2 === 0));
