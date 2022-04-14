@@ -155,8 +155,8 @@ class Triangle {
   secondAdditionalSide: number;
 
   constructor(base: number, firstAdditionalSide: number, secondAdditionalSide: number) {
-    if (base < 0 || firstAdditionalSide < 0 || secondAdditionalSide < 0) {
-      throw new Error('Operators cannot be negative');
+    if (base < 1 || firstAdditionalSide < 1 || secondAdditionalSide < 1) {
+      throw new Error('Operators cannot be less then 1');
     }
     this.base = base;
     this.firstAdditionalSide = firstAdditionalSide;
@@ -167,7 +167,7 @@ class Triangle {
     return this.base + this.firstAdditionalSide + this.secondAdditionalSide;
   }
   getSquare(): number {
-    let halfPerimeter = this.getPerimeter() / 2;
+    let halfPerimeter: number = this.getPerimeter() / 2;
     return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
       (halfPerimeter - this.secondAdditionalSide));
   }
@@ -178,7 +178,7 @@ class Circle {
 
   constructor(radius: number) {
     if (radius < 1) {
-      throw new Error('Operator cannot be negative');
+      throw new Error('Operator cannot be less then 1');
     }
     this.radius = radius;
   }
@@ -196,8 +196,8 @@ class Rectangle {
   length: number;
 
   constructor(width: number, length: number) {
-    if (width < 0 || length < 0) {
-      throw new Error('Operator cannot be negative');
+    if (width < 1 || length <= 1) {
+      throw new Error('Operators cannot be less then 1');
     }
     this.width = width;
     this.length = length;
@@ -209,4 +209,112 @@ class Rectangle {
   getSquare(): number {
     return this.width * this.length;
   }
+}
+
+function TriangleConstructor(base: number, firstAdditionalSide: number
+  , secondAdditionalSide: number): void {
+  if (base < 1 || firstAdditionalSide < 1 || secondAdditionalSide < 1) {
+    throw new Error('Operators cannot be less then 1');
+  }
+  this.base = base;
+  this.firstAdditionalSide = firstAdditionalSide;
+  this.secondAdditionalSide = secondAdditionalSide;
+}
+
+TriangleConstructor.prototype.getPerimeter = function (): number {
+  return this.base + this.firstAdditionalSide + this.secondAdditionalSide;
+}
+
+TriangleConstructor.prototype.getSquare = function (): number {
+  let halfPerimeter: number = this.getPerimeter() / 2;  
+  return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
+    (halfPerimeter - this.secondAdditionalSide));
+}
+
+function CircleConstructor(radius: number): void {
+  if (radius < 1) {
+    throw new Error('Operator cannot be less then 1');
+  }
+  this.radius = radius;
+}
+
+CircleConstructor.prototype.getPerimeter = function (): number {
+  return 2 * this.radius * Math.PI;
+}
+
+CircleConstructor.prototype.getSquare = function (): number {
+  return Math.PI * (this.radius ** 2);
+}
+
+function RectangleConstructor(width: number, length: number): void {
+  if (width < 1 || length < 1) {
+    throw new Error('Operators cannot be less then 1');
+  }
+  this.width = width;
+  this.length - length;
+}
+
+RectangleConstructor.prototype.getPerimeter = function (): number {
+  return 2 * (this.length + this.width);
+}
+
+RectangleConstructor.prototype.getSquare = function (): number {
+  return this.length * this.width;
+}
+
+// 8
+const getFactorialMemo = (function () {
+  const memory: object = {};
+  return function recursionFact(number: number): number {
+    if (number === 0) {
+      return 1;
+    }
+    if (!memory[number]) {
+      memory[number] = recursionFact(number - 1);
+    }
+    return number * memory[number];
+  }
+})
+
+const getFactorialCycle = (number: number): number => {
+  let result: number = 1;
+  for (let i = 1; i <= number; i++){
+    result *= i;
+  }
+  return result;
+}
+
+// 9
+const getSummFromArrayRecursion = (array: Array<number>,
+  callback: (value: number) => boolean, result?: number, index?: number): number => {
+  result = result || 0;
+  index = index || 0;
+  if (index >= array.length) {
+    return result;
+  }
+  if (callback(array[index])) {
+    result += array[index];
+  }
+  return getSummFromArrayRecursion(array, callback, result, ++index);
+}
+
+const getSummFromArray = (array: Array<number>, callback: (value: number) => boolean): number => {
+  let result: number = 0;
+  for (let i = 0; i < array.length; i++){
+    if (callback(array[i])) {
+      result += array[i];
+    }
+  }
+  return result;
+}
+
+// 10
+const getElemsCount = (array: Array<number>, callback: (value: number) => boolean): number => {
+  let count: number = 0;
+  for (let number of array) {
+    if (callback(number)) {
+      count++
+    }
+  }
+  return count;
 }

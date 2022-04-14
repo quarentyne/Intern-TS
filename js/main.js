@@ -126,8 +126,8 @@ const getWordsCount = (string) => {
 //7
 class Triangle {
     constructor(base, firstAdditionalSide, secondAdditionalSide) {
-        if (base < 0 || firstAdditionalSide < 0 || secondAdditionalSide < 0) {
-            throw new Error('Operators cannot be negative');
+        if (base < 1 || firstAdditionalSide < 1 || secondAdditionalSide < 1) {
+            throw new Error('Operators cannot be less then 1');
         }
         this.base = base;
         this.firstAdditionalSide = firstAdditionalSide;
@@ -145,7 +145,7 @@ class Triangle {
 class Circle {
     constructor(radius) {
         if (radius < 1) {
-            throw new Error('Operator cannot be negative');
+            throw new Error('Operator cannot be less then 1');
         }
         this.radius = radius;
     }
@@ -158,8 +158,8 @@ class Circle {
 }
 class Rectangle {
     constructor(width, length) {
-        if (width < 0 || length < 0) {
-            throw new Error('Operator cannot be negative');
+        if (width < 1 || length <= 1) {
+            throw new Error('Operators cannot be less then 1');
         }
         this.width = width;
         this.length = length;
@@ -171,3 +171,95 @@ class Rectangle {
         return this.width * this.length;
     }
 }
+function TriangleConstructor(base, firstAdditionalSide, secondAdditionalSide) {
+    if (base < 1 || firstAdditionalSide < 1 || secondAdditionalSide < 1) {
+        throw new Error('Operators cannot be less then 1');
+    }
+    this.base = base;
+    this.firstAdditionalSide = firstAdditionalSide;
+    this.secondAdditionalSide = secondAdditionalSide;
+}
+TriangleConstructor.prototype.getPerimeter = function () {
+    return this.base + this.firstAdditionalSide + this.secondAdditionalSide;
+};
+TriangleConstructor.prototype.getSquare = function () {
+    let halfPerimeter = this.getPerimeter() / 2;
+    return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
+        (halfPerimeter - this.secondAdditionalSide));
+};
+function CircleConstructor(radius) {
+    if (radius < 1) {
+        throw new Error('Operator cannot be less then 1');
+    }
+    this.radius = radius;
+}
+CircleConstructor.prototype.getPerimeter = function () {
+    return 2 * this.radius * Math.PI;
+};
+CircleConstructor.prototype.getSquare = function () {
+    return Math.PI * (Math.pow(this.radius, 2));
+};
+function RectangleConstructor(width, length) {
+    if (width < 1 || length < 1) {
+        throw new Error('Operators cannot be less then 1');
+    }
+    this.width = width;
+    this.length - length;
+}
+RectangleConstructor.prototype.getPerimeter = function () {
+    return 2 * (this.length + this.width);
+};
+RectangleConstructor.prototype.getSquare = function () {
+    return this.length * this.width;
+};
+// 8
+const getFactorialMemo = (function () {
+    const memory = {};
+    return function recursionFact(number) {
+        if (number === 0) {
+            return 1;
+        }
+        if (!memory[number]) {
+            memory[number] = recursionFact(number - 1);
+        }
+        return number * memory[number];
+    };
+});
+const getFactorialCycle = (number) => {
+    let result = 1;
+    for (let i = 1; i <= number; i++) {
+        result *= i;
+    }
+    return result;
+};
+// 9
+const getSummFromArrayRecursion = (array, callback, result, index) => {
+    result = result || 0;
+    index = index || 0;
+    if (index >= array.length) {
+        return result;
+    }
+    if (callback(array[index])) {
+        result += array[index];
+    }
+    return getSummFromArrayRecursion(array, callback, result, ++index);
+};
+const getSummFromArray = (array, callback) => {
+    let result = 0;
+    for (let i = 0; i < array.length; i++) {
+        if (callback(array[i])) {
+            result += array[i];
+        }
+    }
+    return result;
+};
+// 10
+const getElemsCount = (array, callback) => {
+    let count = 0;
+    for (let number of array) {
+        if (callback(number)) {
+            count++;
+        }
+    }
+    return count;
+};
