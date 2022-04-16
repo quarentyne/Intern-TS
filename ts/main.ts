@@ -1,18 +1,18 @@
 interface Array<T> {
   myFilter(callback: (value: T) => boolean | T): Array<T>;
   mySort(): Array<T>;
-  myIncludes(element: T): boolean;
+  myIncludes(element:T): boolean;
   myReduce(): number;
 }
 
 Array.prototype.myReduce = function () {
-  let result: number = 0;
+  let result = 0;
   for (let i = 0; i < this.length; i++){
     result += this[i];
   }
   return result;
 }
-
+// Why without callback?
 Array.prototype.mySort = function () {
   for (let i = 0; i < this.length; i++) {
     for (let j = 0; j < this.length; j++) {
@@ -27,7 +27,7 @@ Array.prototype.mySort = function () {
 }
 
 Array.prototype.myFilter = function (callback) {
-  const result: Array<any> = [];
+  const result = [];
   for (let i = 0; i < this.length; i++){
     if (callback(this[i])) {
       result.push(this[i]);
@@ -56,8 +56,8 @@ String.prototype.deleteSpaces = function () {
 
 String.prototype.mySplit = function (separator, limit) {
   limit = limit || 0;
-  const wordsArray: Array<string> = [];
-  let word: string = '';
+  const wordsArray = [];
+  let word = '';
 
   for (let i = 0; i < this.length; i++){
     if (this[i] !== separator) {
@@ -83,8 +83,8 @@ const checkIsAnagramm = (firstString: string, secondString: string): boolean => 
     return false;
   }
 
-  const firstArray: Array<string> = [];
-  const secondArray: Array<string> = [];
+  const firstArray = [];
+  const secondArray = [];
 
   for (let word of firstString) {
     firstArray.push(word);
@@ -112,7 +112,7 @@ const getNumberAmoutRecursion = (number: number, count?: number): number => {
 }
 
 const getNumberAmout = (number: number): number => {
-  let count: number = 0;
+  let count = 0;
   for (count; number >= 1; count++){
     number /= 10;
   }
@@ -132,8 +132,8 @@ const checkIsPalindrom = (string: string): boolean => {
 //5
 const getCountUniqWords = (string: string): number => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
-  const stringWords: Array<string> = string.mySplit(' ').myFilter(value => value);
-  const result: Array<string> = [];
+  const stringWords = string.mySplit(' ').myFilter(value => value);
+  const result = [];
   for (let word of stringWords) {
     if (!result.myIncludes(word)) {
       result.push(word);
@@ -145,8 +145,8 @@ const getCountUniqWords = (string: string): number => {
 //6
 const getWordsCount = (string: string): object => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
-  const stringWords: Array<string> = string.mySplit(' ').myFilter(value => value);
-  const wordCount: object = {};
+  const stringWords = string.mySplit(' ').myFilter(value => value);
+  const wordCount = {};
   for (let word of stringWords) {
     if (!wordCount[word]) {
       wordCount[word] = 1;
@@ -172,11 +172,11 @@ class Triangle {
     this.secondAdditionalSide = secondAdditionalSide;
   }
 
-  getPerimeter(): number {
+  getPerimeter() {
     return this.base + this.firstAdditionalSide + this.secondAdditionalSide;
   }
-  getSquare(): number {
-    let halfPerimeter: number = this.getPerimeter() / 2;
+  getSquare() {
+    let halfPerimeter = this.getPerimeter() / 2;
     return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
       (halfPerimeter - this.secondAdditionalSide));
   }
@@ -192,10 +192,10 @@ class Circle {
     this.radius = radius;
   }
 
-  getPerimeter(): number {
+  getPerimeter() {
     return 2 * this.radius * Math.PI;
   }
-  getSquare(): number {
+  getSquare() {
     return Math.PI * (this.radius ** 2);
   }
 }
@@ -212,10 +212,10 @@ class Rectangle {
     this.length = length;
   }
 
-  getPerimeter(): number {
+  getPerimeter() {
     return 2 * (this.width * this.length);
   }
-  getSquare(): number {
+  getSquare() {
     return this.width * this.length;
   }
 }
@@ -235,7 +235,7 @@ TriangleConstructor.prototype.getPerimeter = function (): number {
 }
 
 TriangleConstructor.prototype.getSquare = function (): number {
-  let halfPerimeter: number = this.getPerimeter() / 2;  
+  let halfPerimeter = this.getPerimeter() / 2;  
   return Math.sqrt(halfPerimeter * (halfPerimeter - this.base) * (halfPerimeter - this.firstAdditionalSide) *
     (halfPerimeter - this.secondAdditionalSide));
 }
@@ -273,7 +273,7 @@ RectangleConstructor.prototype.getSquare = function (): number {
 
 // 8
 const getFactorialMemo = (function () {
-  const memory: object = {};
+  const memory = {};
   return function recursionFact(number: number): number {
     if (number === 0) {
       return 1;
@@ -283,10 +283,10 @@ const getFactorialMemo = (function () {
     }
     return number * memory[number];
   }
-})
+})();
 
 const getFactorialCycle = (number: number): number => {
-  let result: number = 1;
+  let result = 1;
   for (let i = 1; i <= number; i++){
     result *= i;
   }
@@ -309,7 +309,7 @@ const getSummFromArrayRecursion = (array: Array<number>,
 
 const getSummFromArray = (array: Array<number>,
   callback: (value: number) => boolean): number => {
-  let result: number = 0;
+  let result = 0;
   for (let i = 0; i < array.length; i++){
     if (callback(array[i])) {
       result += array[i];
@@ -321,10 +321,10 @@ const getSummFromArray = (array: Array<number>,
 // 10
 const getElemsCount = (array: Array<number>,
   callback: (value: number) => boolean): number => {
-  let count: number = 0;
+  let count = 0;
   for (let number of array) {
     if (callback(number)) {
-      count++
+      count++;
     }
   }
   return count;
@@ -332,10 +332,10 @@ const getElemsCount = (array: Array<number>,
 
 //  11
 const toDecimal = (number: number): number => {
-  let result: number = 0;
-  const numbersArray: Array<number> = [];
-  const numLength: number = Math.ceil(Math.log10(number + 1));
-  let maxLength: number = 10 ** (numLength - 1);
+  let result = 0;
+  const numbersArray = [];
+  const numLength = Math.ceil(Math.log10(number + 1));
+  let maxLength = 10 ** (numLength - 1);
 
   while (maxLength >= 1) {
     let trunced: number = Math.trunc(number / maxLength);
@@ -351,8 +351,8 @@ const toDecimal = (number: number): number => {
 }
 
 const toBinary = (number: number): string => {
-  const numbersArray: Array<number> = [];
-  let result: string = '';
+  const numbersArray = [];
+  let result = '';
   while (number / 2 > 0) {
     numbersArray.push(number % 2);
     number = Math.floor(number / 2);
@@ -366,7 +366,7 @@ const toBinary = (number: number): string => {
 // 12
 const getSumTwoDimensionalArray = (array: Array<Array<number>>,
   callback: (value: number) => boolean): number => {
-  let result: number = 0;
+  let result = 0;
   for (let i = 0; i < array.length; i++){
     for (let j = 0; j < array[i].length; j++){
       if (callback(array[i][j])) {
@@ -379,7 +379,7 @@ const getSumTwoDimensionalArray = (array: Array<Array<number>>,
 
 const getElemsCountTwoDimensionalArray = (array: Array<Array<number>>,
   callback: (value: number) => boolean): number => {
-  let result: number = 0;
+  let result = 0;
   for (let i = 0; i < array.length; i++){
     for (let j = 0; j < array[i].length; j++){
       if (callback(array[i][j])) {
@@ -393,7 +393,7 @@ const getElemsCountTwoDimensionalArray = (array: Array<Array<number>>,
 // 13
 const getSumFromSegmentOfNumbers = (min: number, max: number,
   callback: (value: number) => boolean): number => {
-  let result: number = 0;
+  let result = 0;
   for (let i = min; i <= max; i++){
     if (callback(i)) {
       result += i;
@@ -417,20 +417,93 @@ const getSumFromSegmentOfNumbersRecursion = (min: number, max: number,
 // 14
 const takeAverageArrayElements = (array: Array<number>,
   callback: (value: number) => boolean): number => {
-  const filteredArray: Array<number> = array.myFilter(callback);
+  const filteredArray = array.myFilter(callback);
   return filteredArray.myReduce() / filteredArray.length;
 }
 
 const takeAverageTwoDimensionalArrayElements = (array: Array<Array<number>>,
   callback: (value: number) => boolean): number => {
-  let result: number = 0;
-  let count: number = 0;
+  let result = 0;
+  let count = 0;
   for (let i = 0; i < array.length; i++){
-    const filtered: Array<number> = array[i].myFilter(callback);
+    const filtered = array[i].myFilter(callback);
     if (filtered.length !== 0) {
       count += filtered.length;
       result += filtered.myReduce();
     }
   }
   return result / count;
+}
+
+// 15
+const transposeMatrix = (matrix: Array<Array<number>>): Array<Array<number>> => {
+  if (matrix.length === 0) {
+    throw new Error('The input parameter must be a matrix');
+  }
+  const transposed = [];
+  let maxLength = matrix.length;
+  while (maxLength > 0) {
+    transposed.push([]);
+    maxLength--;
+  }
+
+  for (let i = 0; i < matrix.length; i++){
+    if (matrix[i].length !== matrix.length) {
+      throw new Error('This matrix cant be transposed');
+    }
+    for (let j = 0; j < matrix[i].length; j++){
+      transposed[j].push(matrix[i][j]);
+    }
+  }
+  return transposed;
+}
+
+const getMatrixSum = (matrix1: Array<Array<number>>,
+  matrix2: Array<Array<number>>): Array<Array<number>> => {
+  const matrixSum = [];
+  for (let i = 0; i < matrix1.length; i++){
+    if (matrix1[i].length !== matrix2[i].length) {
+      throw new Error('The arrays are not the same size. Addition not possible');
+    }
+
+    matrixSum[i] = [];
+    for (let j = 0; j < matrix1[i].length; j++){
+      matrixSum[i][j] = matrix1[i][j] + matrix2[i][j];
+    }
+  }
+  return matrixSum;
+}
+
+//16
+const deleteRowsWithZero = (array: Array<Array<number>>): Array<Array<number>> => {
+  for (let i = 0; i < array.length; i++){
+    if (array[i].myIncludes(0)) {
+      array.splice(i--, 1);      
+    }
+  }
+  return array;
+}
+
+const deleteColumnWithZero = (array: Array<Array<number>>): Array<Array<number>> => {
+  const deleteIndex = [];
+  for (let i = 0; i < array.length; i++){
+    for (let j = 0; j < array[i].length; j++){
+      if (array[i][j] === 0) {
+        if (!deleteIndex.myIncludes(j)) {
+          deleteIndex.push(j);
+        }
+      }
+    }
+  }
+  let count = 0;
+  console.log(deleteIndex);
+  
+  deleteIndex.mySort();
+  for (let key of deleteIndex) {
+    for (let i = 0; i < array.length; i++){
+      array[i].splice(key + count, 1);
+    }
+    count--;
+  }
+  return array;
 }

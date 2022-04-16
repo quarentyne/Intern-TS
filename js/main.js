@@ -5,6 +5,7 @@ Array.prototype.myReduce = function () {
     }
     return result;
 };
+// Why without callback?
 Array.prototype.mySort = function () {
     for (let i = 0; i < this.length; i++) {
         for (let j = 0; j < this.length; j++) {
@@ -231,7 +232,7 @@ const getFactorialMemo = (function () {
         }
         return number * memory[number];
     };
-});
+})();
 const getFactorialCycle = (number) => {
     let result = 1;
     for (let i = 1; i <= number; i++) {
@@ -360,4 +361,69 @@ const takeAverageTwoDimensionalArrayElements = (array, callback) => {
     }
     return result / count;
 };
-console.log(takeAverageTwoDimensionalArrayElements([[2], [4], [2, 2, 0, 6]], v => v % 2 === 0));
+// 15
+const transposeMatrix = (matrix) => {
+    if (matrix.length === 0) {
+        throw new Error('The input parameter must be a matrix');
+    }
+    const transposed = [];
+    let maxLength = matrix.length;
+    while (maxLength > 0) {
+        transposed.push([]);
+        maxLength--;
+    }
+    for (let i = 0; i < matrix.length; i++) {
+        if (matrix[i].length !== matrix.length) {
+            throw new Error('This matrix cant be transposed');
+        }
+        for (let j = 0; j < matrix[i].length; j++) {
+            transposed[j].push(matrix[i][j]);
+        }
+    }
+    return transposed;
+};
+const getMatrixSum = (matrix1, matrix2) => {
+    const matrixSum = [];
+    for (let i = 0; i < matrix1.length; i++) {
+        if (matrix1[i].length !== matrix2[i].length) {
+            throw new Error('The arrays are not the same size. Addition not possible');
+        }
+        matrixSum[i] = [];
+        for (let j = 0; j < matrix1[i].length; j++) {
+            matrixSum[i][j] = matrix1[i][j] + matrix2[i][j];
+        }
+    }
+    return matrixSum;
+};
+//16
+const deleteRowsWithZero = (array) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].myIncludes(0)) {
+            array.splice(i--, 1);
+        }
+    }
+    return array;
+};
+const deleteColumnWithZero = (array) => {
+    const deleteIndex = [];
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            if (array[i][j] === 0) {
+                if (!deleteIndex.myIncludes(j)) {
+                    deleteIndex.push(j);
+                }
+            }
+        }
+    }
+    let count = 0;
+    console.log(deleteIndex);
+    deleteIndex.mySort();
+    for (let key of deleteIndex) {
+        for (let i = 0; i < array.length; i++) {
+            array[i].splice(key + count, 1);
+        }
+        count--;
+    }
+    return array;
+};
+console.log(deleteColumnWithZero([[1, 2, 3, 2, 0], [4, 0, 6, 2, 2], [7, 8, 9, 2, 2], [0, 1, 2, 2, 2], [4, 1, 1, 2, 5]]));
