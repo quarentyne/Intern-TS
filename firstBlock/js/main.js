@@ -416,7 +416,6 @@ const deleteColumnWithZero = (array) => {
         }
     }
     let count = 0;
-    console.log(deleteIndex);
     deleteIndex.mySort();
     for (let key of deleteIndex) {
         for (let i = 0; i < array.length; i++) {
@@ -426,4 +425,134 @@ const deleteColumnWithZero = (array) => {
     }
     return array;
 };
-console.log(deleteColumnWithZero([[1, 2, 3, 2, 0], [4, 0, 6, 2, 2], [7, 8, 9, 2, 2], [0, 1, 2, 2, 2], [4, 1, 1, 2, 5]]));
+// 17
+const takeActionOnMatrix = (matrix, direction, resultFunction) => {
+    let result = 0;
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            if (direction(i, j)) {
+                result += resultFunction(matrix[i][j]);
+            }
+        }
+    }
+    return result;
+};
+const fibonachiObject = {
+    start: 0,
+    end: 10,
+    current: 1,
+    prev: 0,
+    [Symbol.iterator]() {
+        return {
+            start: this.start,
+            end: this.end,
+            current: this.current,
+            prev: this.prev,
+            nexNum: 0,
+            next() {
+                if (this.start < this.end) {
+                    this.nextNum = this.prev;
+                    this.prev = this.current;
+                    this.current = this.nextNum + this.current;
+                    this.start++;
+                    return {
+                        value: this.nextNum,
+                        done: false,
+                    };
+                }
+                return {
+                    value: undefined,
+                    done: true,
+                };
+            },
+        };
+    },
+};
+function* fibonachi() {
+    let prev = 0;
+    let current = 1;
+    while (true) {
+        let result = prev;
+        prev = current;
+        current = result + current;
+        yield result;
+    }
+}
+const fibonachiRecursion = (number) => {
+    if (number <= 1) {
+        return number;
+    }
+    return fibonachiRecursion(number - 1) + fibonachiRecursion(number - 2);
+};
+const fibonachiMemoized = (function () {
+    const memo = {};
+    return function fibonachiMemo(number) {
+        if (number === 0 || number === 1) {
+            return number;
+        }
+        if (number in memo) {
+            return memo[number];
+        }
+        memo[number] = fibonachiMemo(number - 1) + fibonachiMemo(number - 2);
+        return memo[number];
+    };
+})();
+// 19
+function* trafficLightGenerator() {
+    while (true) {
+        yield 'red';
+        yield 'yellow';
+        yield 'green';
+        yield 'yellow';
+    }
+}
+const trafficIterator = {
+    color: ['red', 'yellow', 'green', 'yellow'],
+    [Symbol.iterator]() {
+        return {
+            color: this.color,
+            index: 0,
+            next() {
+                if (this.index === this.color.length) {
+                    this.index = 0;
+                }
+                while (this.index < this.color.length) {
+                    return {
+                        value: this.color[this.index++],
+                        done: false,
+                    };
+                }
+            },
+        };
+    },
+};
+// 20
+const checkIsNegativeNumber = (number) => {
+    return (number & (1 << 31)) === (1 << 31);
+};
+const getNumberOfBits = (number) => {
+    let binaryNumber = toBinary((number >>> 0));
+    let zeroes = 32;
+    let units = 0;
+    for (let num of binaryNumber) {
+        if (num === '1') {
+            units++;
+        }
+    }
+    const result = {};
+    result[0] = zeroes - units;
+    result[1] = units;
+    return result;
+};
+const bitwiseNotEasy = (number) => {
+    return -number - 1;
+};
+const bitwiseNot = (number) => {
+    let result = 0;
+    for (let i = 0; i < 32; i++) {
+        if (((number >> i) & 1) !== 1) {
+            result |= (1 << i);
+        }
+    }
+    return result;
+};
