@@ -76,7 +76,7 @@ String.prototype.mySplit = function (separator, limit) {
 }
 
 //1
-const checkIsAnagramm = (firstString: string, secondString: string): boolean => {
+const checkIsAnagramm = (firstString: string, secondString: string) => {
   firstString = firstString.deleteSpaces().toLowerCase();
   secondString = secondString.deleteSpaces().toLowerCase();
   if (firstString.length !== secondString.length) {
@@ -111,7 +111,7 @@ const getNumberAmoutRecursion = (number: number, count?: number): number => {
   return getNumberAmoutRecursion(number / 10, ++count);
 }
 
-const getNumberAmout = (number: number): number => {
+const getNumberAmout = (number: number) => {
   let count = 0;
   for (count; number >= 1; count++){
     number /= 10;
@@ -120,7 +120,7 @@ const getNumberAmout = (number: number): number => {
 }
 
 //4
-const checkIsPalindrom = (string: string): boolean => {
+const checkIsPalindrom = (string: string) => {
   for (let i = 0; i < string.length; i++){
     if (string[i] !== string[string.length - 1 - i]) {
       return false;
@@ -130,7 +130,7 @@ const checkIsPalindrom = (string: string): boolean => {
 }
 
 //5
-const getCountUniqWords = (string: string): number => {
+const getCountUniqWords = (string: string) => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
   const stringWords = string.mySplit(' ').myFilter(value => value);
   const result = [];
@@ -143,7 +143,7 @@ const getCountUniqWords = (string: string): number => {
 }
 
 //6
-const getWordsCount = (string: string): object => {
+const getWordsCount = (string: string) => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
   const stringWords = string.mySplit(' ').myFilter(value => value);
   const wordCount = {};
@@ -274,7 +274,7 @@ RectangleConstructor.prototype.getSquare = function (): number {
 // 8
 const getFactorialMemo = (function () {
   const memory = {};
-  return function recursionFact(number: number): number {
+  return function recursionFact(number: number) {
     if (number === 0) {
       return 1;
     }
@@ -285,7 +285,7 @@ const getFactorialMemo = (function () {
   }
 })();
 
-const getFactorialCycle = (number: number): number => {
+const getFactorialCycle = (number: number) => {
   let result = 1;
   for (let i = 1; i <= number; i++){
     result *= i;
@@ -308,7 +308,7 @@ const getSummFromArrayRecursion = (array: Array<number>,
 }
 
 const getSummFromArray = (array: Array<number>,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   let result = 0;
   for (let i = 0; i < array.length; i++){
     if (callback(array[i])) {
@@ -320,7 +320,7 @@ const getSummFromArray = (array: Array<number>,
 
 // 10
 const getElemsCount = (array: Array<number>,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   let count = 0;
   for (let number of array) {
     if (callback(number)) {
@@ -331,9 +331,9 @@ const getElemsCount = (array: Array<number>,
 }
 
 //  11
-const toDecimal = (number: number): number => {
+const toDecimal = (number: number) => {
   let result = 0;
-  const numbersArray = [];
+  const numbersArray: number[] = [];
   const numLength = Math.ceil(Math.log10(number + 1));
   let maxLength = 10 ** (numLength - 1);
 
@@ -350,8 +350,8 @@ const toDecimal = (number: number): number => {
   return result;
 }
 
-const toBinary = (number: number): string => {
-  const numbersArray = [];
+const toBinary = (number: number) => {
+  const numbersArray: number[] = [];
   let result = '';
   while (number / 2 > 0) {
     numbersArray.push(number % 2);
@@ -365,7 +365,7 @@ const toBinary = (number: number): string => {
 
 // 12
 const getSumTwoDimensionalArray = (array: Array<Array<number>>,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   let result = 0;
   for (let i = 0; i < array.length; i++){
     for (let j = 0; j < array[i].length; j++){
@@ -378,7 +378,7 @@ const getSumTwoDimensionalArray = (array: Array<Array<number>>,
 }
 
 const getElemsCountTwoDimensionalArray = (array: Array<Array<number>>,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   let result = 0;
   for (let i = 0; i < array.length; i++){
     for (let j = 0; j < array[i].length; j++){
@@ -392,7 +392,7 @@ const getElemsCountTwoDimensionalArray = (array: Array<Array<number>>,
 
 // 13
 const getSumFromSegmentOfNumbers = (min: number, max: number,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   let result = 0;
   for (let i = min; i <= max; i++){
     if (callback(i)) {
@@ -416,13 +416,13 @@ const getSumFromSegmentOfNumbersRecursion = (min: number, max: number,
 
 // 14
 const takeAverageArrayElements = (array: Array<number>,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   const filteredArray = array.myFilter(callback);
   return filteredArray.myReduce() / filteredArray.length;
 }
 
 const takeAverageTwoDimensionalArrayElements = (array: Array<Array<number>>,
-  callback: (value: number) => boolean): number => {
+  callback: (value: number) => boolean) => {
   let result = 0;
   let count = 0;
   for (let i = 0; i < array.length; i++){
@@ -510,7 +510,7 @@ const deleteColumnWithZero = (array: Array<Array<number>>): Array<Array<number>>
 // 17
 const takeActionOnMatrix = (matrix: Array<Array<number>>,
   direction: (value1: number, value2: number) => boolean,
-  resultFunction: (number: number) => number): number => {
+  resultFunction: (number: number) => number) => {
   let result = 0;
   for (let i = 0; i < matrix.length; i++){
     for (let j = 0; j < matrix[i].length; j++){
@@ -632,11 +632,11 @@ const trafficIterator: Traffic = {
 }
 
 // 20
-const checkIsNegativeNumber = (number: number): boolean => {
+const checkIsNegativeNumber = (number: number) => {
   return (number & (1 << 31)) === (1 << 31);
 }
 
-const getNumberOfBits = (number: number): object => {
+const getNumberOfBits = (number: number) => {
   let binaryNumber = toBinary((number >>> 0));
   let zeroes = 32;
   let units = 0;
@@ -651,11 +651,11 @@ const getNumberOfBits = (number: number): object => {
   return result;
 }
 
-const bitwiseNotEasy = (number: number): number => {
+const bitwiseNotEasy = (number: number) => {
   return -number - 1;
 }
 
-const bitwiseNot = (number: number): number => {
+const bitwiseNot = (number: number) => {
   let result = 0;
   for (let i = 0; i < 32; i++){
     if (((number >> i) & 1) !== 1) {
