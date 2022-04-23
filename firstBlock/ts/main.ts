@@ -77,6 +77,14 @@ String.prototype.mySplit = function (separator, limit) {
 
 type PredicateCallback = (value: number) => boolean;
 
+type StringObject = {
+  [value: string]: number
+}
+
+type NumberObject = {
+  [value: number]: number
+}
+
 //1
 const checkIsAnagramm = (firstString: string, secondString: string): boolean => {
   firstString = firstString.deleteSpaces().toLowerCase();
@@ -145,10 +153,10 @@ const getCountUniqWords = (string: string): number => {
 }
 
 //6
-const getWordsCount = (string: string): object => {
+const getWordsCount = (string: string): StringObject => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
   const stringWords: string[] = string.mySplit(' ').myFilter(value => value);
-  const wordCount: object = {};
+  const wordCount: StringObject = {};
   for (let word of stringWords) {
     if (!wordCount[word]) {
       wordCount[word] = 1;
@@ -275,7 +283,7 @@ RectangleConstructor.prototype.getSquare = function (): number {
 
 // 8
 const getFactorialMemo = (function () {
-  const memory: object = {};
+  const memory: NumberObject = {};
   return function recursionFact(number: number): number {
     if (number === 0) {
       return 1;
@@ -591,7 +599,7 @@ const fibonachiRecursion = (number: number): number => {
 }
 
 const fibonachiMemoized = (function () {
-  const memo: object = {};
+  const memo: NumberObject = {};
   return function fibonachiMemo(number: number): number {
     if (number === 0 || number === 1) {
       return number;
