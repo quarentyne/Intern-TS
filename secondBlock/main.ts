@@ -1,10 +1,13 @@
+type PossibleTypes = String | Number | Boolean | Object | Function;
+
 interface Function {
-  myCall(context: String | Number | Boolean | Object, ...args: any): any;
-  myBind(context: String | Number | Boolean | Object, ...args: any): any;
+  myCall<T>(context: PossibleTypes, ...args: T[]): T;
+  myBind<T>(context: PossibleTypes, ...rest: T[]):
+    (...args: T[]) => Function;
 }
 
 Function.prototype.myCall = function (context, ...args) {
-  let insideObject: String | Number | Boolean | Object;
+  let insideObject: PossibleTypes;
 
   if (typeof context === 'object' || typeof context === 'function') {
     insideObject = Object.create(context);
@@ -19,7 +22,7 @@ Function.prototype.myCall = function (context, ...args) {
     insideObject = new Boolean(context);
   }
   
-  const uniqElement = Symbol();
+  const uniqElement: unique symbol = Symbol();
   insideObject[uniqElement] = this;
   const result = insideObject[uniqElement](...args);  
   delete insideObject[uniqElement];
@@ -27,8 +30,8 @@ Function.prototype.myCall = function (context, ...args) {
 }
 
 Function.prototype.myBind = function (context, ...rest) {
-  const there = this;
-  let insideObject: String | Number | Boolean | Object;
+  const there: Function = this;
+  let insideObject: PossibleTypes;
 
   if (typeof context === 'object' || typeof context === 'function') {
     insideObject = Object.create(context);
@@ -44,7 +47,7 @@ Function.prototype.myBind = function (context, ...rest) {
   }
 
   return function (...args: any) {
-    const uniqElement = Symbol();
+    const uniqElement: unique symbol = Symbol();
     insideObject[uniqElement] = there;
     const result = insideObject[uniqElement](...rest, ...args);
     delete insideObject[uniqElement];
@@ -53,17 +56,17 @@ Function.prototype.myBind = function (context, ...rest) {
 };
 
 interface Array<T> {
-  myFilter(callback: (value: T, index: number, array: Array<T>) => boolean): Array<T>;
-  myMap(callback: (value: T, index: number, array: Array<T>) => T): Array<T>;
+  myFilter(callback: (value: T, index?: number, array?: Array<T>) => boolean): Array<T>;
+  myMap(callback: (value: T, index?: number, array?: Array<T>) => T): Array<T>;
   myReduce(callback: (prevValue: T, currentValue: T,
-    index: number, array: Array<T>) => T, accumulator?: T): T;
-  myFind(callback: (value: T, index: number, array: Array<T>) => boolean): T | undefined;
-  myForEach(callback: (value: T, index: number, array: Array<T>) => void): void;
+    index?: number, array?: Array<T>) => T, accumulator?: T): T;
+  myFind(callback: (value: T, index?: number, array?: Array<T>) => boolean): T | undefined;
+  myForEach(callback: (value: T, index?: number, array?: Array<T>) => void): void;
 }
 
 Array.prototype.myFilter = function (callback) {
   const result = [];
-  for (let i = 0; i < this.length; i++) {
+  for (let i: number = 0; i < this.length; i++) {
     if (callback(this[i], i, this)) {
       result.push(this[i])
     }
@@ -73,25 +76,25 @@ Array.prototype.myFilter = function (callback) {
 
 Array.prototype.myMap = function (callback) {
   const result = [];
-  for (let i = 0; i < this.length; i++) {
+  for (let i: number = 0; i < this.length; i++) {
     result.push(callback(this[i], i, this));
   }
   return result;
 };
 
-Array.prototype.myReduce = function (callback, initialValue) {
+Array.prototype.myReduce = function (callback, initialValue?) {
   if (this.length === 0) {
     throw new Error('reduce of empty array with no initial value');
   }
   let accumulator = initialValue || 0;
-  for (let i = 0; i < this.length; i++) {
+  for (let i: number = 0; i < this.length; i++) {    
     accumulator = callback(accumulator, this[i], i, this);
   }
   return accumulator;
 };
 
 Array.prototype.myFind = function (callback) {
-  for (let i = 0; i < this.length; i++) {
+  for (let i: number = 0; i < this.length; i++) {
     if (callback(this[i], i, this)) {
       return this[i];
     }
@@ -100,7 +103,7 @@ Array.prototype.myFind = function (callback) {
 };
 
 Array.prototype.myForEach = function (callback) {
-  for (let i = 0; i < this.length; i++) {
+  for (let i: number = 0; i < this.length; i++) {
     if (this[i] === undefined) {
       continue;
     }
