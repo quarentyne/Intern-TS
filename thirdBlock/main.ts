@@ -36,8 +36,8 @@ Array.prototype.insertionSort = function (callback) {
 
 type TreeObject = {
   data: number;
-  left: object | null;
-  right: object | null;
+  left: TreeObject | null;
+  right: TreeObject | null;
   add(value: number | TreeObject): void;
   find(value: number): TreeObject | null;
   delete(value: number): TreeObject;
@@ -120,6 +120,9 @@ class BinaryTree{
     }
 
     let newNode: TreeObject = this.right;
+    while (newNode.left) {
+      newNode = newNode.left;
+    }
     this.data = newNode.data;
     this.right = this.right.delete(newNode.data);
     return this;
