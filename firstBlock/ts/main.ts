@@ -1,6 +1,6 @@
 interface Array<T> {
   myFilter(callback: (value: T) => boolean | T): Array<T>;
-  mySort(): Array<T>;
+  mySort: (callback?: (element1: T, element2: T) => boolean) => Array<T>;
   myIncludes(element:T): boolean;
   myReduce(): number;
 }
@@ -13,14 +13,16 @@ Array.prototype.myReduce = function () {
   return result;
 }
 
-Array.prototype.mySort = function () {
-  for (let i: number = 0; i < this.length; i++) {
-    for (let j: number = 0; j < this.length; j++) {
-      if (this[j] > this[j + 1]) {
-        let temp = this[j];
-        this[j] = this[j + 1];
-        this[j + 1] = temp;
-      }
+Array.prototype.mySort = function (callback) {
+  if (typeof callback !== 'function') {
+    callback = (element1, element2) => element1 > element2;
+  }
+
+  for (let i: number = 0; i < this.length; i++){
+    let j: number = i;
+    while (j > 0 && callback(this[j - 1], this[j])) {
+      [this[j], this[j - 1]] = [this[j - 1], this[j]]
+      j--;
     }
   }
   return this;
