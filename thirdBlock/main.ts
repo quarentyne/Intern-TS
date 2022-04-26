@@ -40,7 +40,7 @@ type TreeObject = {
   right: object | null;
   add(value: number | TreeObject): void;
   find(value: number): TreeObject | null;
-  delete(value: number): TreeObject | null;
+  delete(value: number): TreeObject;
 }
 
 class BinaryTree{
@@ -93,7 +93,7 @@ class BinaryTree{
     return this.left.find(data);
   }
 
-  delete(data: number): TreeObject | null {
+  delete(data: number): TreeObject {
     if (this.data < data) {
       if (this.right === null) {
         return this;
