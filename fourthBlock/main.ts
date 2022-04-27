@@ -167,7 +167,7 @@ class Bank {
 
   async requestExchangeRate(): Promise<ExhangeRates> {
     let promise: Response = await fetch('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5');
-    let exchangeObject = await promise.json()
+    let exchangeObject: ExhangeRates = await promise.json()
     
       .then(data => {        
         const exchangeRates: ExhangeRates = { 'UAH': { sale: 1 } };
