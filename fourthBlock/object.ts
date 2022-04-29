@@ -1,3 +1,5 @@
+'use strict';
+
 export interface BillTemplate {
   currency: string;
   expirationDate: string;

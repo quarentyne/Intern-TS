@@ -1,3 +1,5 @@
+'use strict';
+
 export const checkID: RegExp = /^[0-9]+$/;
 export const checkName: RegExp = /^[a-zA-Z]{2,}\s[a-zA-Z]{2,}(\s[a-zA-Z]{2,})?$/;
 export const checkMoney: RegExp = /^[0-9]+$/;
