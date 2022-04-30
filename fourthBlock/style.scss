@@ -1,0 +1,102 @@
+%flex-template{
+  display: flex;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  margin-left: 15px;
+}
+
+.main-content {
+  flex-shrink: 1;
+  background-color: black;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.side-content {
+  background-color: red;
+  width: 20%;
+  min-height: 100vh;
+}
+
+.client {
+  font-size: 17px;
+  background-color: #fff;
+  width: 45%;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 2px solid black;
+}
+
+.client__header {
+  @extend .flex-template;
+}
+
+.client__footer {
+  @extend .flex-template;
+}
+
+.control {
+  @extend .flex-template;
+}
+
+.bill {
+  font-size: 16px;
+  width: 100%;
+  padding: 5px 0;
+  border: 2px solid black;
+  &:not(.bill:last-child){
+    margin-bottom: 10px;
+  }
+  input {
+    width: 30%;
+  }
+}
+
+.bill__current {
+  @extend .flex-template;
+}
+
+.bill__current p {
+  width: 25%;
+}
+
+.bill__footer {
+  @extend .flex-template;
+}
+
+.side-content {
+  flex-shrink: 5;
+  position: relative;
+  width: 100%;
+}
+
+.side-content__block {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 20px;
+  div {
+    display: flex;
+  }
+}
+
+.side-content__error {
+  font-size: 30px;
+}
