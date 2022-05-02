@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES6",
+    "noImplicitAny": true,
   },
   "files": [
-    "main.ts"
-  ]
+    "src/main.ts", "src/bill.ts", "src/bankOperations.ts", "src/client.ts",
+    "src/checking.ts", "src/object.ts", "src/renderContent.ts",
+  ],
 }
