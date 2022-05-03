@@ -115,15 +115,15 @@ const checkIsAnagramm = (firstString: string, secondString: string): boolean => 
 }
 
 //3
-const getNumberAmoutRecursion = (number: number, count?: number): number => {
+const countNumberAmountRecursion = (number: number, count?: number): number => {
   count = count || 0;
   if (number > -10 && number < 10) {
     return ++count;
   }
-  return getNumberAmoutRecursion(number / 10, ++count);
+  return countNumberAmountRecursion(number / 10, ++count);
 }
 
-const getNumberAmout = (number: number): number => {
+const countNumberAmount = (number: number): number => {
   let count: number = 0;
   for (count; number >= 1; count++){
     number /= 10;
@@ -142,7 +142,7 @@ const checkIsPalindrom = (string: string): boolean => {
 }
 
 //5
-const getCountUniqWords = (string: string): number => {
+const countUniqWords = (string: string): number => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
   const stringWords: string[] = string.mySplit(' ').myFilter(value => value);
   const result: string[] = [];
@@ -155,7 +155,7 @@ const getCountUniqWords = (string: string): number => {
 }
 
 //6
-const getWordsCount = (string: string): StringObject => {
+const countWords = (string: string): StringObject => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
   const stringWords: string[] = string.mySplit(' ').myFilter(value => value);
   const wordCount: StringObject = {};
@@ -284,7 +284,7 @@ RectangleConstructor.prototype.getSquare = function (): number {
 }
 
 // 8
-const getFactorialMemo = (function () {
+const calculateFactorialMemo = (function () {
   const memory: NumberObject = {};
   return function recursionFact(number: number): number {
     if (number === 0) {
@@ -297,7 +297,7 @@ const getFactorialMemo = (function () {
   }
 })();
 
-const getFactorialCycle = (number: number): number => {
+const calculateFactorialCycle = (number: number): number => {
   let result: number = 1;
   for (let i: number = 1; i <= number; i++){
     result *= i;
@@ -306,7 +306,7 @@ const getFactorialCycle = (number: number): number => {
 }
 
 // 9
-const getSummFromArrayRecursion = (array: number[],
+const calculateSummFromArrayRecursion = (array: number[],
   callback: PredicateCallback, result?: number, index?: number): number => {
   result = result || 0;
   index = index || 0;
@@ -316,10 +316,10 @@ const getSummFromArrayRecursion = (array: number[],
   if (callback(array[index])) {
     result += array[index];
   }
-  return getSummFromArrayRecursion(array, callback, result, ++index);
+  return calculateSummFromArrayRecursion(array, callback, result, ++index);
 }
 
-const getSummFromArray = (array: number[],
+const calculateSummFromArray = (array: number[],
   callback: PredicateCallback): number => {
   let result: number = 0;
   for (let i: number = 0; i < array.length; i++){
@@ -331,7 +331,7 @@ const getSummFromArray = (array: number[],
 }
 
 // 10
-const getElemsCount = (array: number[],
+const countElements = (array: number[],
   callback: PredicateCallback): number => {
   let count: number = 0;
   for (let number of array) {
@@ -389,7 +389,7 @@ const getSumTwoDimensionalArray = (array: number[][],
   return result;
 }
 
-const getElemsCountTwoDimensionalArray = (array: number[][],
+const countElemsTwoDimensionalArray = (array: number[][],
   callback: PredicateCallback): number => {
   let result: number = 0;
   for (let i: number = 0; i < array.length; i++){
