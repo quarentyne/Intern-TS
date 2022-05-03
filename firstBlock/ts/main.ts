@@ -679,7 +679,7 @@ const bitwiseNotEasy = (number: number): number => {
 }
 
 const bitwiseNot = (number: number): number => {
-  let result = 0;
+  let result: number = 0;
   for (let i = 0; i < 32; i++){
     if (((number >> i) & 1) !== 1) {
       result |= (1 << i);
