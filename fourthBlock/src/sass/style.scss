@@ -1,7 +1,4 @@
-%flex-template{
-  display: flex;
-  justify-content: space-between;
-}
+$black: #000000;
 
 body {
   margin: 0px;
@@ -20,7 +17,7 @@ li {
 
 .main-content {
   flex-shrink: 1;
-  background-color: black;
+  background-color: $black;
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -40,26 +37,14 @@ li {
   width: 45%;
   padding-left: 15px;
   padding-right: 15px;
-  border: 2px solid black;
-}
-
-.client__header {
-  @extend .flex-template;
-}
-
-.client__footer {
-  @extend .flex-template;
-}
-
-.control {
-  @extend .flex-template;
+  border: 2px solid $black;
 }
 
 .bill {
   font-size: 16px;
   width: 100%;
   padding: 5px 0;
-  border: 2px solid black;
+  border: 2px solid $black;
   &:not(.bill:last-child){
     margin-bottom: 10px;
   }
@@ -68,16 +53,13 @@ li {
   }
 }
 
-.bill__current {
-  @extend .flex-template;
-}
-
 .bill__current p {
   width: 25%;
 }
 
-.bill__footer {
-  @extend .flex-template;
+.bill__footer, .bill__current, .client__header, .client__footer, .control {
+  display: flex;
+  justify-content: space-between;
 }
 
 .side-content {
@@ -89,7 +71,7 @@ li {
 .side-content__block {
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid $black;
   padding: 5px;
   margin-bottom: 20px;
   div {
