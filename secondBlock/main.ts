@@ -1,9 +1,9 @@
 type PossibleTypes = String | Number | Boolean | Object | Function;
 
 interface Function {
-  myCall<T>(context: PossibleTypes, ...args: T[]): T;
-  myBind<T>(context: PossibleTypes, ...rest: T[]):
-    (...args: T[]) => Function;
+  myCall<T>(context: PossibleTypes, ...args: Array<T>): T;
+  myBind<T>(context: PossibleTypes, ...rest: Array<T>):
+    (...args: Array<T>) => Function;
 }
 
 Function.prototype.myCall = function (context, ...args) {
