@@ -95,8 +95,8 @@ const checkIsAnagramm = (firstString: string, secondString: string): boolean => 
     return false;
   }
 
-  const firstArray: string[] = [];
-  const secondArray: string[] = [];
+  const firstArray: Array<string> = [];
+  const secondArray: Array<string> = [];
 
   for (let word of firstString) {
     firstArray.push(word);
@@ -144,8 +144,8 @@ const checkIsPalindrom = (string: string): boolean => {
 //5
 const countUniqWords = (string: string): number => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
-  const stringWords: string[] = string.mySplit(' ').myFilter(value => value);
-  const result: string[] = [];
+  const stringWords: Array<string> = string.mySplit(' ').myFilter(value => value);
+  const result: Array<string> = [];
   for (let word of stringWords) {
     if (!result.myIncludes(word)) {
       result.push(word);
@@ -157,7 +157,7 @@ const countUniqWords = (string: string): number => {
 //6
 const countWords = (string: string): StringObject => {
   string = string.deleteSpaces().toLowerCase().replace(/[,?!()\.]/g, '');
-  const stringWords: string[] = string.mySplit(' ').myFilter(value => value);
+  const stringWords: Array<string> = string.mySplit(' ').myFilter(value => value);
   const wordCount: StringObject = {};
   for (let word of stringWords) {
     if (!wordCount[word]) {
@@ -306,7 +306,7 @@ const calculateFactorialCycle = (number: number): number => {
 }
 
 // 9
-const calculateSummFromArrayRecursion = (array: number[],
+const calculateSummFromArrayRecursion = (array: Array<number>,
   callback: PredicateCallback, result?: number, index?: number): number => {
   result = result || 0;
   index = index || 0;
@@ -319,7 +319,7 @@ const calculateSummFromArrayRecursion = (array: number[],
   return calculateSummFromArrayRecursion(array, callback, result, ++index);
 }
 
-const calculateSummFromArray = (array: number[],
+const calculateSummFromArray = (array: Array<number>,
   callback: PredicateCallback): number => {
   let result: number = 0;
   for (let i: number = 0; i < array.length; i++){
@@ -331,7 +331,7 @@ const calculateSummFromArray = (array: number[],
 }
 
 // 10
-const countElements = (array: number[],
+const countElements = (array: Array<number>,
   callback: PredicateCallback): number => {
   let count: number = 0;
   for (let number of array) {
@@ -345,7 +345,7 @@ const countElements = (array: number[],
 //  11
 const toDecimal = (number: number): number => {
   let result: number = 0;
-  const numbersArray: number[] = [];
+  const numbersArray: Array<number> = [];
   const numLength: number = Math.ceil(Math.log10(number + 1));
   let maxLength: number = 10 ** (numLength - 1);
 
@@ -363,7 +363,7 @@ const toDecimal = (number: number): number => {
 }
 
 const toBinary = (number: number): string => {
-  const numbersArray: number[] = [];
+  const numbersArray: Array<number> = [];
   let result: string = '';
   while (number / 2 > 0) {
     numbersArray.push(number % 2);
@@ -376,7 +376,7 @@ const toBinary = (number: number): string => {
 }
 
 // 12
-const getSumTwoDimensionalArray = (array: number[][],
+const getSumTwoDimensionalArray = (array: Array<Array<number>>,
   callback: PredicateCallback) => {
   let result: number = 0;
   for (let i: number = 0; i < array.length; i++){
@@ -389,7 +389,7 @@ const getSumTwoDimensionalArray = (array: number[][],
   return result;
 }
 
-const countElemsTwoDimensionalArray = (array: number[][],
+const countElemsTwoDimensionalArray = (array: Array<Array<number>>,
   callback: PredicateCallback): number => {
   let result: number = 0;
   for (let i: number = 0; i < array.length; i++){
@@ -427,18 +427,18 @@ const getSumFromSegmentOfNumbersRecursion = (min: number, max: number,
 }
 
 // 14
-const takeAverageArrayElements = (array: number[],
+const takeAverageArrayElements = (array: Array<number>,
   callback: PredicateCallback): number => {
-  const filteredArray: number[] = array.myFilter(callback);
+  const filteredArray: Array<number> = array.myFilter(callback);
   return filteredArray.myReduce() / filteredArray.length;
 }
 
-const takeAverageTwoDimensionalArrayElements = (array: number[][],
+const takeAverageTwoDimensionalArrayElements = (array: Array<Array<number>>,
   callback: PredicateCallback): number => {
   let result: number = 0;
   let count: number = 0;
   for (let i: number = 0; i < array.length; i++){
-    const filtered: number[] = array[i].myFilter(callback);
+    const filtered: Array<number> = array[i].myFilter(callback);
     if (filtered.length !== 0) {
       count += filtered.length;
       result += filtered.myReduce();
@@ -448,11 +448,11 @@ const takeAverageTwoDimensionalArrayElements = (array: number[][],
 }
 
 // 15
-const transposeMatrix = (matrix: number[][]): number[][] => {
+const transposeMatrix = (matrix: Array<Array<number>>): Array<Array<number>> => {
   if (matrix.length === 0) {
     throw new Error('The input parameter must be a matrix');
   }
-  const transposed: number[][] = [];
+  const transposed: Array<Array<number>> = [];
   let maxLength: number = matrix.length;
   while (maxLength > 0) {
     transposed.push([]);
@@ -470,9 +470,9 @@ const transposeMatrix = (matrix: number[][]): number[][] => {
   return transposed;
 }
 
-const getMatrixSum = (matrix1: number[][],
-  matrix2: number[][]): number[][] => {
-  const matrixSum: number[][] = [];
+const getMatrixSum = (matrix1: Array<Array<number>>,
+  matrix2: Array<Array<number>>): Array<Array<number>> => {
+  const matrixSum: Array<Array<number>> = [];
   for (let i: number = 0; i < matrix1.length; i++){
     if (matrix1[i].length !== matrix2[i].length) {
       throw new Error('The arrays are not the same size. Addition not possible');
@@ -487,7 +487,7 @@ const getMatrixSum = (matrix1: number[][],
 }
 
 //16
-const deleteRowsWithZero = (array: number[][]): number[][] => {
+const deleteRowsWithZero = (array: Array<Array<number>>): Array<Array<number>> => {
   for (let i: number = 0; i < array.length; i++){
     if (array[i].myIncludes(0)) {
       array.splice(i--, 1);      
@@ -496,8 +496,8 @@ const deleteRowsWithZero = (array: number[][]): number[][] => {
   return array;
 }
 
-const deleteColumnWithZero = (array: number[][]): number[][] => {
-  const deleteIndex: number[] = [];
+const deleteColumnWithZero = (array: Array<Array<number>>): Array<Array<number>> => {
+  const deleteIndex: Array<number> = [];
   for (let i: number = 0; i < array.length; i++){
     for (let j: number = 0; j < array[i].length; j++){
       if (array[i][j] === 0) {
@@ -520,7 +520,7 @@ const deleteColumnWithZero = (array: number[][]): number[][] => {
 }
 
 // 17
-const takeActionOnMatrix = (matrix: number[][],
+const takeActionOnMatrix = (matrix: Array<Array<number>>,
   direction: (value1: number, value2: number) => boolean,
   resultFunction: (number: number) => number): number => {
   let result: number = 0;
@@ -625,9 +625,9 @@ function* trafficLightGenerator(): IterableIterator<string> {
 }
 
 interface Traffic {
-  color: string[];
+  color: Array<string>;
   [Symbol.iterator](): {
-    color: string[];
+    color: Array<string>;
     index: number;
     next(): IteratorYieldResult<string>;
   };
