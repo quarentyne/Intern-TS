@@ -59,7 +59,7 @@ interface Array<T> {
   myFilter(callback: (value: T, index?: number, array?: Array<T>) => boolean): Array<T>;
   myMap(callback: (value: T, index?: number, array?: Array<T>) => T): Array<T>;
   myReduce(callback: (prevValue: T, currentValue: T,
-    index?: number, array?: Array<T>) => T, accumulator?: T): T;
+    index?: number, array?: Array<T>) => T): T;
   myFind(callback: (value: T, index?: number, array?: Array<T>) => boolean): T | undefined;
   myForEach(callback: (value: T, index?: number, array?: Array<T>) => void): void;
 }
@@ -82,15 +82,15 @@ Array.prototype.myMap = function (callback) {
   return result;
 };
 
-Array.prototype.myReduce = function (callback, initialValue?) {
+Array.prototype.myReduce = function (callback) {
   if (this.length === 0) {
     throw new Error('reduce of empty array with no initial value');
   }
-  let accumulator = initialValue || 0;
-  for (let i: number = 0; i < this.length; i++) {    
-    accumulator = callback(accumulator, this[i], i, this);
+  let result = this[0];
+  for (let i: number = 1; i < this.length; i++) {    
+    result = callback(result, this[i], i, this);
   }
-  return accumulator;
+  return result;
 };
 
 Array.prototype.myFind = function (callback) {
