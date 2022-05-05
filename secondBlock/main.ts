@@ -1,16 +1,16 @@
 type PossibleTypes = String | Number | Boolean | Object | Function;
 
 interface Function {
-  myCall<T>(context: PossibleTypes, ...args: Array<T>): T;
-  myBind<T>(context: PossibleTypes, ...rest: Array<T>):
-    (...args: Array<T>) => Function;
+  myCall<T, Q>(this: Function, thisArg: T, ...argArray: Array<any>): Q;
+  myBind<T>(this: Function, thisArg: T, ...argArray: Array<any>):
+    (...args: Array<any>) => Function;
 }
 
 Function.prototype.myCall = function (context, ...args) {
-  let insideObject: PossibleTypes;
+  let insideObject: Object;
 
   if (typeof context === 'object' || typeof context === 'function') {
-    insideObject = Object.create(context);
+    insideObject = context
   }
   if (typeof context === 'number') {
     insideObject = new Number(context);
@@ -20,21 +20,20 @@ Function.prototype.myCall = function (context, ...args) {
   }
   if (typeof context === 'boolean') {
     insideObject = new Boolean(context);
-  }
-  
+  }  
   const uniqElement: unique symbol = Symbol();
-  insideObject[uniqElement] = this;
-  const result = insideObject[uniqElement](...args);  
-  delete insideObject[uniqElement];
+  insideObject[uniqElement] = this;  
+  const result = insideObject[uniqElement](...args);
+  delete insideObject[uniqElement];  
   return result;
 }
 
 Function.prototype.myBind = function (context, ...rest) {
   const there: Function = this;
-  let insideObject: PossibleTypes;
+  let insideObject: Object;
 
   if (typeof context === 'object' || typeof context === 'function') {
-    insideObject = Object.create(context);
+    insideObject = context
   }
   if (typeof context === 'number') {
     insideObject = new Number(context);
@@ -60,7 +59,7 @@ interface Array<T> {
   myMap(callback: (value: T, index?: number, array?: Array<T>) => T): Array<T>;
   myReduce(callback: (prevValue: T, currentValue: T,
     index?: number, array?: Array<T>) => T): T;
-  myFind(callback: (value: T, index?: number, array?: Array<T>) => boolean): T | undefined;
+  myFind(callback: (value: T, index?: number, array?: Array<T>) => boolean): T;
   myForEach(callback: (value: T, index?: number, array?: Array<T>) => void): void;
 }
 
@@ -72,7 +71,7 @@ Array.prototype.myFilter = function (callback) {
     }
   }
   return result;
-}
+};
 
 Array.prototype.myMap = function (callback) {
   const result = [];
