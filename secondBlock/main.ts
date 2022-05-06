@@ -10,7 +10,11 @@ Function.prototype.myCall = function (context, ...args) {
   let insideObject: Object;
 
   if (typeof context === 'object' || typeof context === 'function') {
-    insideObject = context
+    if (!context) {
+      insideObject = globalThis;
+    }else{
+      insideObject = context;
+    }
   }
   if (typeof context === 'number') {
     insideObject = new Number(context);
@@ -33,7 +37,11 @@ Function.prototype.myBind = function (context, ...rest) {
   let insideObject: Object;
 
   if (typeof context === 'object' || typeof context === 'function') {
-    insideObject = context
+    if (!context) {
+      insideObject = globalThis;
+    }else{
+      insideObject = context;
+    }
   }
   if (typeof context === 'number') {
     insideObject = new Number(context);
