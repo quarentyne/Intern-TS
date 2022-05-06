@@ -1,5 +1,3 @@
-type PossibleTypes = String | Number | Boolean | Object | Function;
-
 interface Function {
   myCall<T, Q>(this: Function, thisArg: T, ...argArray: Array<any>): Q;
   myBind<T>(this: Function, thisArg: T, ...argArray: Array<any>):
