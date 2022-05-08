@@ -9,7 +9,7 @@ Function.prototype.myCall = function (context, ...args) {
 
   if (typeof context === 'object' || typeof context === 'function') {
     if (!context) {
-      insideObject = globalThis;
+      insideObject = Object.create(null);
     }else{
       insideObject = context;
     }
@@ -36,7 +36,7 @@ Function.prototype.myBind = function (context, ...rest) {
 
   if (typeof context === 'object' || typeof context === 'function') {
     if (!context) {
-      insideObject = globalThis;
+      insideObject = Object.create(null);
     }else{
       insideObject = context;
     }
