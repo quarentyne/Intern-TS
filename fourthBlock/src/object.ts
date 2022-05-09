@@ -1,38 +1,16 @@
 'use strict';
 
-export interface BillTemplate {
-  currency: string;
-  expirationDate: string;
-  isActive: boolean;
-  lastActiveDate: string;
-  balance: number;
-  limit?:number | null
-}
-
-export interface ClientTemplate {
-  fullName: string;
-  isActive: boolean;
-  id: number;
-  joinDate: Date;
-  creditBills: BillTemplate[];
-  debetBills: BillTemplate[];
-  addDebetBill(currency: string, expirationDate: string, isActive: boolean,
-    lastActiveDate: string, balance: number): void;
-  addCreditBill(currency: string, expirationDate: string, isActive: boolean,
-    lastActiveDate: string, balance: number, limit: number): void;
-}
-
 interface ExhangeRates{
   [key: string]: { [key: string]: number; }
 }
 
-class Bill {
+export class Bill {
   currency: string;
   expirationDate: string;
   isActive: boolean;
   lastActiveDate: string;
   balance: number;
-  limit: number | null;
+  limit: number;
 
   constructor(currency: string, expirationDate: string, isActive: boolean,
     lastActiveDate: string, balance: number, limit?:number | null) {
@@ -45,13 +23,13 @@ class Bill {
   }  
 }
 
-class Client {
+export class Client {
   fullName: string;
   isActive: boolean;
   id: number;
   joinDate: Date;
-  creditBills: BillTemplate[];
-  debetBills: BillTemplate[];
+  creditBills: Array<Bill>;
+  debetBills: Array<Bill>;
 
   constructor(fullName: string, isActive: boolean, id: number) {
     this.fullName = fullName;
@@ -74,7 +52,7 @@ class Client {
 
 export class Bank {
   counter: number;
-  clients: ClientTemplate[];
+  clients: Array<Client>;
 
   constructor() {
     this.counter = 0;
@@ -85,7 +63,7 @@ export class Bank {
     this.clients.push(new Client(fullName, isActive, this.counter++));
   }
 
-  findClient(id: number): ClientTemplate {
+  findClient(id: number): Client {
     for (let client of this.clients) {
       if (client.id === id) {
         return client;
@@ -153,7 +131,7 @@ export class Bank {
     return debtAmount;
   }  
 
-  countDebt(account: BillTemplate, exchangeRates: ExhangeRates): number {
+  countDebt(account: Bill, exchangeRates: ExhangeRates): number {
     let result: number = 0;
     if (account.limit < account.balance) {
       return result;

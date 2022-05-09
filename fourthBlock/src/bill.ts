@@ -1,11 +1,11 @@
 'use strict';
 
 import { displayError, checkMoney, checkCurrency, checkDate } from "./checking.js";
-import { Bank, BillTemplate } from "./object.js";
+import { Bank, Bill } from "./object.js";
 import { renderMainContent, mainContent, errorPlace } from "./renderContent.js";
 
-export function renderBill(clientBill: BillTemplate, place: HTMLUListElement,
-  bills: BillTemplate[], bank: Bank): void {
+export function renderBill(clientBill: Bill, place: HTMLUListElement,
+  bills: Array<Bill>, bank: Bank): void {
   
   const bill: HTMLDivElement = document.createElement('div');
   bill.classList.add('bill');

@@ -3,9 +3,9 @@
 import { renderBill } from './bill.js';
 import { renderMainContent, mainContent, errorPlace } from "./renderContent.js";
 import { displayError, checkName } from "./checking.js";
-import { ClientTemplate, Bank } from './object.js';
+import { Client, Bank } from './object.js';
 
-export function renderClient(place: HTMLElement, clientCard: ClientTemplate, bank: Bank): void {
+export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank): void {
   const client: HTMLDivElement = document.createElement('div');
   client.classList.add('client');
   place.append(client);
@@ -96,10 +96,9 @@ export function renderClient(place: HTMLElement, clientCard: ClientTemplate, ban
         return;
       }
 
+      clientCard.isActive = false;
       if (changeClientActive.value === 'true') {
         clientCard.isActive = true;
-      } else {
-        clientCard.isActive = false;
       }
 
       clientCard.fullName = changeName.value;
