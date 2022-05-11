@@ -138,7 +138,7 @@ export function renderSideContent(place: HTMLElement, bank: Bank): void {
     newClientName.value = '';
     mainContent.innerHTML = '';
     renderMainContent(bank.clients, bank);
-  })
+  });
 
   addBillButton.addEventListener('click', () => {
 
@@ -180,7 +180,7 @@ export function renderSideContent(place: HTMLElement, bank: Bank): void {
 
     mainContent.innerHTML = '';
     renderMainContent(bank.clients, bank);
-  })
+  });
 
   calculateAmountButton.addEventListener('click', async function () {
     let result: number = 0;
@@ -192,5 +192,5 @@ export function renderSideContent(place: HTMLElement, bank: Bank): void {
       result = await bank.calculateAccountTypeDebt(false);
     }
     calculateAmountResult.innerHTML = result + '$'
-  })
+  });
 }

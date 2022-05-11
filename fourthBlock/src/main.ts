@@ -1,6 +1,6 @@
 'use strict';
 
-import { Bank } from "./object.js"
+import { Bank } from "./object.js";
 import { renderSideContent } from "./bankOperations.js";
 import { renderMainContent, mainContent, sideContent } from "./renderContent.js";
 

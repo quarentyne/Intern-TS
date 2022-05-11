@@ -20,12 +20,11 @@ export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank)
 
   const clientActive: HTMLParagraphElement = document.createElement('p');
   clientNameLine.append(clientActive);
+  clientActive.innerHTML = 'Inactive';
   if (clientCard.isActive) {
     clientActive.innerHTML = 'Active';
-  } else {
-    clientActive.innerHTML = 'Inactive';
   }
-
+  
   const clientDebetBills: HTMLUListElement = document.createElement('ul');
   client.append(clientDebetBills);
   clientDebetBills.innerHTML = 'Debet Bills:';
@@ -105,10 +104,10 @@ export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank)
       mainContent.innerHTML = '';
       renderMainContent(bank.clients, bank);
     })
-  })
+  });
 
   clientDelete.addEventListener('click', () => {
-    for (let i = 0; i < bank.clients.length; i++) {      
+    for (let i = 0; i < bank.clients.length; i++) {
       if (bank.clients[i] === clientCard) {
         bank.clients.splice(i, 1);
         mainContent.innerHTML = '';
@@ -116,5 +115,5 @@ export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank)
         break;
       }
     }
-  })
+  });
 }

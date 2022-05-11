@@ -10,7 +10,7 @@ Function.prototype.myCall = function (context, ...args) {
   if (typeof context === 'object' || typeof context === 'function') {
     if (!context) {
       insideObject = Object.create(null);
-    }else{
+    } else {
       insideObject = context;
     }
   }
@@ -22,13 +22,13 @@ Function.prototype.myCall = function (context, ...args) {
   }
   if (typeof context === 'boolean') {
     insideObject = new Boolean(context);
-  }  
+  }
   const uniqElement: unique symbol = Symbol();
-  insideObject[uniqElement] = this;  
+  insideObject[uniqElement] = this;
   const result = insideObject[uniqElement](...args);
-  delete insideObject[uniqElement];  
+  delete insideObject[uniqElement];
   return result;
-}
+};
 
 Function.prototype.myBind = function (context, ...rest) {
   const there: Function = this;

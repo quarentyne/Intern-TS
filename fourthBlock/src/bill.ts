@@ -43,10 +43,9 @@ export function renderBill(clientBill: Bill, place: HTMLUListElement,
 
   const billIsActive: HTMLParagraphElement = document.createElement('p');
   billFooter.append(billIsActive);
+  billIsActive.innerHTML = 'Bill is Inactive';
   if (clientBill.isActive) {
     billIsActive.innerHTML = 'Bill is Active';
-  } else {
-    billIsActive.innerHTML = 'Bill is Inactive';
   }
 
   const billControl: HTMLDivElement = document.createElement('div');
@@ -130,16 +129,14 @@ export function renderBill(clientBill: Bill, place: HTMLUListElement,
       clientBill.expirationDate = editExpiration.value;
       clientBill.lastActiveDate = editActivity.value;
 
+      clientBill.isActive = false;
       if (editBalanceActive.value === 'true') {
         clientBill.isActive = true;
-      } else {
-        clientBill.isActive = false;
       }
-
       mainContent.innerHTML = '';
       renderMainContent(bank.clients, bank);
-    })
-  })
+    });
+  });
 
   billDelete.addEventListener('click', () => {
     for (let i = 0; i < bills.length; i++) {
@@ -150,5 +147,5 @@ export function renderBill(clientBill: Bill, place: HTMLUListElement,
         return;
       }
     }
-  })
+  });
 }
