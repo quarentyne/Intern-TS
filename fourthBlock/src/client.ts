@@ -69,7 +69,7 @@ export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank)
   clientDelete.innerHTML = 'Delete';
   clientControl.append(clientDelete);
 
-  clientEdit.addEventListener('click', (): void => {
+  clientEdit.addEventListener('click', () => {
     const changeName: HTMLInputElement = document.createElement('input');
     changeName.value = clientCard.fullName;
     clientName.innerHTML = '';
@@ -90,7 +90,7 @@ export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank)
     clientActive.innerHTML = '';
     clientActive.append(changeClientActive);
 
-    clientEdit.addEventListener('click', (): void => {
+    clientEdit.addEventListener('click', () => {
       if (!checkName.test(changeName.value)) {
         displayError('Name', errorPlace);
         return;
@@ -107,8 +107,8 @@ export function renderClient(place: HTMLElement, clientCard: Client, bank: Bank)
     })
   })
 
-  clientDelete.addEventListener('click', ():void => {
-    for (let i = 0; i < bank.clients.length; i++) {
+  clientDelete.addEventListener('click', () => {
+    for (let i = 0; i < bank.clients.length; i++) {      
       if (bank.clients[i] === clientCard) {
         bank.clients.splice(i, 1);
         mainContent.innerHTML = '';

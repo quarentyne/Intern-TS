@@ -61,7 +61,7 @@ export function renderBill(clientBill: Bill, place: HTMLUListElement,
   billDelete.innerHTML = 'Delete';
   billControl.append(billDelete);
 
-  billEdit.addEventListener('click', (): void => {
+  billEdit.addEventListener('click', () => {
     const editBalance: HTMLInputElement = document.createElement('input');
     const editLimit: HTMLInputElement = document.createElement('input');
     const editCurrency: HTMLInputElement = document.createElement('input');
@@ -105,7 +105,7 @@ export function renderBill(clientBill: Bill, place: HTMLUListElement,
     billIsActive.innerHTML = 'Bill is ';
     billIsActive.append(editBalanceActive);
 
-    billEdit.addEventListener('click', (): void => {
+    billEdit.addEventListener('click', () => {
       if (clientBill.limit === null) {
         editLimit.value = '0';
       }
@@ -141,7 +141,7 @@ export function renderBill(clientBill: Bill, place: HTMLUListElement,
     })
   })
 
-  billDelete.addEventListener('click', (): void => {
+  billDelete.addEventListener('click', () => {
     for (let i = 0; i < bills.length; i++) {
       if (bills[i] === clientBill) {
         bills.splice(i, 1);

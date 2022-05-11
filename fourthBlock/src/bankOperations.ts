@@ -123,7 +123,7 @@ export function renderSideContent(place: HTMLElement, bank: Bank): void {
 
   operationBlock.append(errorPlace);
 
-  newClientButton.addEventListener('click', (): void => {
+  newClientButton.addEventListener('click', () => {
     if (!checkName.test(newClientName.value)) {
       displayError('Name', errorPlace);
       return;
@@ -140,7 +140,7 @@ export function renderSideContent(place: HTMLElement, bank: Bank): void {
     renderMainContent(bank.clients, bank);
   })
 
-  addBillButton.addEventListener('click', (): void => {
+  addBillButton.addEventListener('click', () => {
 
     if (!checkID.test(addBillID.value)) {
       displayError('ID', errorPlace);
@@ -182,7 +182,7 @@ export function renderSideContent(place: HTMLElement, bank: Bank): void {
     renderMainContent(bank.clients, bank);
   })
 
-  calculateAmountButton.addEventListener('click', async function (): Promise<void> {
+  calculateAmountButton.addEventListener('click', async function () {
     let result: number = 0;
     if (calculateAmountMenu.value === 'all') {
       result = await bank.calculateMoneyAmount();
