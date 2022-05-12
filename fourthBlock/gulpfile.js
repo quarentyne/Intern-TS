@@ -7,17 +7,17 @@ const styleCSS = () => {
   return gulp.src('src/sass/*.scss')
     .pipe(sass())
     .pipe(gulp.dest("dist/css"))
-}
+};
 
 const html = () => {
   return gulp.src('src/*.html')
     .pipe(gulp.dest("dist"));
-}
+};
 
 const typeScriptModules = () => {
   return tsProject.src()
     .pipe(tsProject()).js
     .pipe(gulp.dest("dist"));
-}
+};
 
 exports.default = gulp.series(html, typeScriptModules, styleCSS)
