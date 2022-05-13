@@ -49,7 +49,7 @@ class BinaryTree<T>{
   }
 
   add(root: T): void {
-    if (root < this.data) {
+    if (compare(root) < compare(this.data)) {
       if (!this.left) {
         this.left = new BinaryTree(root);
         return;
@@ -69,7 +69,7 @@ class BinaryTree<T>{
     if (this.data === data) {
       return this;
     }
-    if (this.data < data) {
+    if (compare(this.data) < compare(data)) {
       if (this.right === null) {
         return null;
       }
@@ -82,14 +82,14 @@ class BinaryTree<T>{
   }
 
   delete(data: T): BinaryTree<T> {
-    if (this.data < data) {
+    if (compare(this.data) < compare(data)) {
       if (this.right === null) {
         return this;
       }
       this.right = this.right.delete(data);
       return this;
     }
-    if (this.data > data) {
+    if (compare(this.data) > compare(data)) {
       if (this.left === null) {
         return this;
       }
@@ -115,4 +115,18 @@ class BinaryTree<T>{
     this.right = this.right.delete(newNode.data);
     return this;
   }
+}
+// let tree = new BinaryTree({ a: 3 })
+// tree.add({a:4})
+// tree.add({ a: 2 })
+// tree.add({ a: 1 })
+// console.log(tree);
+function compare(element: Object): number{
+  let result: number = 0;
+  if (typeof element === 'object') {
+    for (let key in element) {
+      result += element[key];
+    }
+  }
+  return result;
 }
