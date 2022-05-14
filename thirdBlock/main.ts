@@ -48,13 +48,13 @@ class BinaryTree<T>{
     this.right = null;
   }
 
-  add(root: T): void {
-    if (compare(root) < compare(this.data)) {
+  add(root: T, toPrimitive: (value: T) => number): void {
+    if (toPrimitive(root) < toPrimitive(this.data)) {
       if (!this.left) {
         this.left = new BinaryTree(root);
         return;
       }
-      this.left.add(root);
+      this.left.add(root, toPrimitive);
       return;
     }
 
@@ -62,38 +62,38 @@ class BinaryTree<T>{
       this.right = new BinaryTree(root);
       return;
     }
-    this.right.add(root);
+    this.right.add(root, toPrimitive);
   }
 
-  find(data: T): BinaryTree<T> {
-    if (this.data === data) {
+  find(data: T, toPrimitive: (value: T) => number): BinaryTree<T> {    
+    if (toPrimitive(this.data) === toPrimitive(data)) {
       return this;
     }
-    if (compare(this.data) < compare(data)) {
+    if (toPrimitive(this.data) < toPrimitive(data)) {
       if (this.right === null) {
         return null;
       }
-      return this.right.find(data);
+      return this.right.find(data, toPrimitive);
     }
     if (this.left === null) {
       return null;
     }
-    return this.left.find(data);
+    return this.left.find(data, toPrimitive);
   }
 
-  delete(data: T): BinaryTree<T> {
-    if (compare(this.data) < compare(data)) {
+  delete(data: T, toPrimitive: (value: T) => number): BinaryTree<T> {
+    if (toPrimitive(this.data) < toPrimitive(data)) {
       if (this.right === null) {
         return this;
       }
-      this.right = this.right.delete(data);
+      this.right = this.right.delete(data, toPrimitive);
       return this;
     }
-    if (compare(this.data) > compare(data)) {
+    if (toPrimitive(this.data) > toPrimitive(data)) {
       if (this.left === null) {
         return this;
       }
-      this.left = this.left.delete(data);
+      this.left = this.left.delete(data, toPrimitive);
       return this;
     }
 
@@ -112,21 +112,7 @@ class BinaryTree<T>{
       newNode = newNode.left;
     }
     this.data = newNode.data;
-    this.right = this.right.delete(newNode.data);
+    this.right = this.right.delete(newNode.data, toPrimitive);
     return this;
   }
-}
-// let tree = new BinaryTree({ a: 3 })
-// tree.add({a:4})
-// tree.add({ a: 2 })
-// tree.add({ a: 1 })
-// console.log(tree);
-function compare(element: Object): number{
-  let result: number = 0;
-  if (typeof element === 'object') {
-    for (let key in element) {
-      result += element[key];
-    }
-  }
-  return result;
 }
