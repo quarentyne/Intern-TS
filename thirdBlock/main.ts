@@ -34,12 +34,16 @@ Array.prototype.insertionSort = function (callback) {
   return this;
 };
 
-class BinaryTree<T>{
-  data: T;
-  left: BinaryTree<T>;
-  right: BinaryTree<T>;
+interface IBinaryTreeData {
+  toEncode: () => number;
+}
 
-  constructor(data: T) {
+class BinaryTree{
+  data: IBinaryTreeData;
+  left: BinaryTree;
+  right: BinaryTree;
+
+  constructor(data: IBinaryTreeData) {
     if (!((typeof data === 'number' && data === 0) || data)) {
       throw new Error('Insert new data');
     }
@@ -48,13 +52,13 @@ class BinaryTree<T>{
     this.right = null;
   }
 
-  add(root: T, toPrimitive: (value: T) => number): void {
-    if (toPrimitive(root) < toPrimitive(this.data)) {
+  add(root: IBinaryTreeData): void {
+    if (root.toEncode() < this.data.toEncode()) {
       if (!this.left) {
         this.left = new BinaryTree(root);
         return;
       }
-      this.left.add(root, toPrimitive);
+      this.left.add(root);
       return;
     }
 
@@ -62,38 +66,38 @@ class BinaryTree<T>{
       this.right = new BinaryTree(root);
       return;
     }
-    this.right.add(root, toPrimitive);
+    this.right.add(root);
   }
 
-  find(data: T, toPrimitive: (value: T) => number): BinaryTree<T> {    
-    if (toPrimitive(this.data) === toPrimitive(data)) {
+  find(data: IBinaryTreeData): BinaryTree {    
+    if (this.data.toEncode() === data.toEncode()) {
       return this;
     }
-    if (toPrimitive(this.data) < toPrimitive(data)) {
+    if (this.data.toEncode() < data.toEncode()) {
       if (this.right === null) {
         return null;
       }
-      return this.right.find(data, toPrimitive);
+      return this.right.find(data);
     }
     if (this.left === null) {
       return null;
     }
-    return this.left.find(data, toPrimitive);
+    return this.left.find(data);
   }
 
-  delete(data: T, toPrimitive: (value: T) => number): BinaryTree<T> {
-    if (toPrimitive(this.data) < toPrimitive(data)) {
+  delete(data: IBinaryTreeData): BinaryTree {
+    if (this.data.toEncode() < data.toEncode()) {
       if (this.right === null) {
         return this;
       }
-      this.right = this.right.delete(data, toPrimitive);
+      this.right = this.right.delete(data);
       return this;
     }
-    if (toPrimitive(this.data) > toPrimitive(data)) {
+    if (this.data.toEncode() > data.toEncode()) {
       if (this.left === null) {
         return this;
       }
-      this.left = this.left.delete(data, toPrimitive);
+      this.left = this.left.delete(data);
       return this;
     }
 
@@ -107,12 +111,12 @@ class BinaryTree<T>{
       return this.left;
     }
 
-    let newNode: BinaryTree<T> = this.right;
+    let newNode: BinaryTree = this.right;
     while (newNode.left) {
       newNode = newNode.left;
     }
     this.data = newNode.data;
-    this.right = this.right.delete(newNode.data, toPrimitive);
+    this.right = this.right.delete(newNode.data);
     return this;
   }
 }
